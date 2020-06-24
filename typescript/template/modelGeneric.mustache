@@ -28,22 +28,25 @@ export class {{classname}} {
 
     {{#vars}}
     {{^isListContainer}}
-    public {{setter}}({{name}}: {{#isEnum}}{{{datatypeWithEnum}}}{{/isEnum}}{{^isEnum}}{{{datatype}}}{{#isNullable}} | null{{/isNullable}}{{^required}} | undefined{{/required}}{{/isEnum}}) {
+    public {{setter}}({{name}}: {{#isEnum}}{{{datatypeWithEnum}}}{{/isEnum}}{{^isEnum}}{{{datatype}}}{{/isEnum}}) {
         this.{{name}} = {{name}}
     }
-
-    public {{getter}}(): {{#isEnum}}{{{datatypeWithEnum}}}{{/isEnum}}{{^isEnum}}{{{datatype}}}{{#isNullable}} | null{{/isNullable}}{{^required}} | undefined{{/required}}{{/isEnum}} {
+    
+    public {{getter}}(): {{#isEnum}}{{{datatypeWithEnum}}}{{^required}} | undefined{{/required}}{{/isEnum}}{{^isEnum}}{{{datatype}}}{{#isNullable}} | null{{/isNullable}}{{^required}} | undefined{{/required}}{{/isEnum}} {
         return this.{{name}}
     }
     {{/isListContainer}}
 
     {{#isListContainer}}
-    // I AM LIST!!!
-    public add{{nameInCamelCase}}({{name}}: {{#isEnum}}{{{datatypeWithEnum}}}{{/isEnum}}{{^isEnum}}{{{complexType}}}{{#isNullable}} | null{{/isNullable}}{{^required}} | undefined{{/required}}{{/isEnum}}) {
-        (this.{{name}} || []).push({{name}})
+    public add{{nameInCamelCase}}({{name}}: {{#isEnum}}{{classname}}{{enumName}}{{/isEnum}}{{^isEnum}}{{#items}}{{{datatype}}}{{/items}}{{/isEnum}}) {
+        if(!this.{{name}}) {
+            this.{{name}} = [{{name}}]
+        } else {
+            this.{{name}}.push({{name}})
+        }
     }
 
-    public {{getter}}(): {{#isEnum}}{{{datatypeWithEnum}}}{{/isEnum}}{{^isEnum}}{{{datatype}}}{{#isNullable}} | null{{/isNullable}}{{^required}} | undefined{{/required}}{{/isEnum}} {
+    public {{getter}}(): {{#isEnum}}{{{datatypeWithEnum}}}{{^required}} | undefined{{/required}}{{/isEnum}}{{^isEnum}}{{{datatype}}}{{#isNullable}} | null{{/isNullable}}{{^required}} | undefined{{/required}}{{/isEnum}} {
         return this.{{name}}
     }
     {{/isListContainer}}
@@ -55,34 +58,34 @@ export class {{classname}} {
         const retVal: {[x:string]: any} = {};
         {{#vars}}
         if(this.{{name}}) {
-            const p = {
             {{^isReadOnly}}
             {{#isPrimitiveType}}
-            '{{baseName}}': {{#isDate}}{{^required}}this.{{name}} === undefined ? undefined : {{/required}}({{#isNullable}}this.{{name}} === null ? null : {{/isNullable}}this.{{name}}.toISOString().substr(0,10)){{/isDate}}{{#isDateTime}}{{^required}}this.{{name}} === undefined ? undefined : {{/required}}({{#isNullable}}this.{{name}} === null ? null : {{/isNullable}}this.{{name}}.toISOString()){{/isDateTime}}{{^isDate}}{{^isDateTime}}this.{{name}}{{/isDateTime}}{{/isDate}},
+            retVal['{{baseName}}'] = {{#isDate}}{{^required}}this.{{name}} === undefined ? undefined : {{/required}}({{#isNullable}}this.{{name}} === null ? null : {{/isNullable}}this.{{name}}.toISOString().substr(0,10)){{/isDate}}{{#isDateTime}}{{^required}}this.{{name}} === undefined ? undefined : {{/required}}({{#isNullable}}this.{{name}} === null ? null : {{/isNullable}}this.{{name}}.toISOString()){{/isDateTime}}{{^isDate}}{{^isDateTime}}this.{{name}}{{/isDateTime}}{{/isDate}};
             {{/isPrimitiveType}}
             {{^isPrimitiveType}}
             {{#isListContainer}}
-            '{{baseName}}': this.{{name}}.map(e => e.serializeToJson()),
+            retVal['{{baseName}}'] = this.{{name}}.map(e => e.serializeToJson());
             {{/isListContainer}}
             {{#isMapContainer}}
-            '{{baseName}}': {{^required}}this.{{name}} === undefined ? undefined : {{/required}}({{#isNullable}}this.{{name}} === null ? null : {{/isNullable}}mapValues(this.{{name}}, {{#items}}{{datatype}}{{/items}}ToJSON)),
+            retVal['{{baseName}}'] = {{^required}}this.{{name}} === undefined ? undefined : {{/required}}({{#isNullable}}this.{{name}} === null ? null : {{/isNullable}}mapValues(this.{{name}}, {{#items}}{{datatype}}{{/items}}ToJSON));
             {{/isMapContainer}}
             {{^isListContainer}}
             {{^isMapContainer}}
             {{^isFreeFormObject}}
-            '{{baseName}}': this.{{name}}.serializeToJson(),
+            retVal['{{baseName}}'] = this.{{name}}.serializeToJson();
             {{/isFreeFormObject}}
             {{#isFreeFormObject}}
-            '{{baseName}}': this.{{name}},
+            retVal['{{baseName}}'] = this.{{name}};
             {{/isFreeFormObject}}
             {{/isMapContainer}}
             {{/isListContainer}}
             {{/isPrimitiveType}}
             {{/isReadOnly}}
-            }
-            retVal = { ...retVal, ...p }
         }
         {{/vars}}
+        if(Object.keys(retVal).length == 0) {
+            return undefined;
+        }
         return retVal;
         {{/hasVars}}
         {{^hasVars}}

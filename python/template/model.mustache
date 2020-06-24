@@ -201,7 +201,7 @@ class {{classname}}(object):
                     if hasattr(item[1], "to_dict") else item,
                     value.items()
                 ))
-            else:
+            elif value:
                 result[attr] = value
 
         return result
