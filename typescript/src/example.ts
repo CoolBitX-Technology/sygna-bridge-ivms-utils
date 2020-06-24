@@ -1,4 +1,5 @@
-import { ivms, normalizedJsonOutput } from ".";
+// import { ivms, normalizedJsonOutput } from ".";
+import * as ivms from "./generated";
 
 // Originator
 // originator name id
@@ -6,15 +7,15 @@ const orgNameId = new ivms.NaturalPersonNameId();
 orgNameId.setPrimaryIdentifier("Wu");
 orgNameId.setSecondaryIdentifier("Xinli");
 orgNameId.setNameIdentifierType(
-  ivms.NaturalPersonNameTypeCode.NATURAL_PERSON_NAME_TYPE_CODE_LEGL
+  ivms.NaturalPersonNameIdNameIdentifierTypeEnum.LEGL
 );
 
 // another name id for originator
-const orgNameIdLocal = new ivms.NaturalPersonNameId();
+const orgNameIdLocal = new ivms.LocalNaturalPersonNameId();
 orgNameIdLocal.setPrimaryIdentifier("吳");
 orgNameIdLocal.setSecondaryIdentifier("信利");
 orgNameIdLocal.setNameIdentifierType(
-  ivms.NaturalPersonNameTypeCode.NATURAL_PERSON_NAME_TYPE_CODE_LEGL
+  ivms.LocalNaturalPersonNameIdNameIdentifierTypeEnum.LEGL
 );
 
 // assign two name id to originator name
