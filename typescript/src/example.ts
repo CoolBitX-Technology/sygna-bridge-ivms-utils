@@ -21,13 +21,13 @@ orgNameIdLocal.setNameIdentifierType(
 // assign two name id to originator name
 const orgPersonName = new ivms.NaturalPersonName();
 orgPersonName.addNameIdentifiers(orgNameId);
-orgPersonName.addNameIdentifiers(orgNameIdLocal);
+orgPersonName.addLocalNameIdentifiers(orgNameIdLocal);
 
 // originator national id and data
 const orgPersonNationalId = new ivms.NationalIdentification();
 orgPersonNationalId.setNationalIdentifier("446005");
 orgPersonNationalId.setNationalIdentifierType(
-  ivms.NationalIdentifierTypeCode.NATIONAL_IDENTIFIER_TYPE_CODE_RAID
+  ivms.NationalIdentificationNationalIdentifierTypeEnum.RAID
 );
 orgPersonNationalId.setRegistrationAuthority("RA000553");
 
@@ -51,7 +51,7 @@ originator.addAccountNumbers("1BvBMSEYstWetqTFn5Au4m4GFg7xJaNVN2");
 const bene1NameId = new ivms.LegalPersonNameId();
 bene1NameId.setLegalPersonName("ABC Limited");
 bene1NameId.setLegalPersonNameIdentifierType(
-  ivms.LegalPersonNameTypeCode.LEGAL_PERSON_NAME_TYPE_CODE_LEGL
+  ivms.LegalPersonNameIdLegalPersonNameIdentifierTypeEnum.LEGL
 );
 
 // assign beneficiary 1 name with id
@@ -70,7 +70,7 @@ beneficiary1Person.setLegalPerson(beneficiary1LegalPerson);
 const bene2NameId = new ivms.LegalPersonNameId();
 bene2NameId.setLegalPersonName("CBA Trading");
 bene2NameId.setLegalPersonNameIdentifierType(
-  ivms.LegalPersonNameTypeCode.LEGAL_PERSON_NAME_TYPE_CODE_TRAD
+  ivms.LegalPersonNameIdLegalPersonNameIdentifierTypeEnum.TRAD
 );
 
 // assign beneficiary 2 name with id
@@ -95,10 +95,5 @@ const privateInfo = new ivms.IdentityPayload();
 privateInfo.setOriginator(originator);
 privateInfo.setBeneficiary(beneficiary);
 
-// you can call this function to get JSON representation of payload
-normalizedJsonOutput(privateInfo).then((d) =>
-  console.log(JSON.stringify(d, null, 2))
-);
-
-// you can also get protobuf binary data of payload
-console.log(privateInfo.serializeBinary());
+const jsonData = privateInfo.serializeToJson();
+console.log(JSON.stringify(jsonData, null, 2));
