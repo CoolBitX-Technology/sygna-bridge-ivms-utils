@@ -25,3 +25,10 @@ phases:
           -o /local/tmp
       - mv ./tmp/openapi_client/models/* ./python/generated/
       - rm -r ./tmp
+      - |
+        docker run --rm -it -v "$(pwd):/local" openapitools/openapi-generator-cli \
+          generate -i /local/bridge_and_ivms.json \
+          -g java \
+          -o /local/tmp
+      - mv ./tmp/src ./java/generated/src
+      - mv ./tmp/pom.xml ./java/generated/pom.xml
