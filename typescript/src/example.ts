@@ -1,5 +1,4 @@
-// import { ivms, normalizedJsonOutput } from ".";
-import * as ivms from "./generated";
+import * as ivms from ".";
 
 // Originator
 // originator name id

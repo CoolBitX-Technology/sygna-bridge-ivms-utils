@@ -1,24 +1,21 @@
 {
-  "name": "ts-proto",
+  "name": "@sygna/bridge-ivms-util",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "tsc -b .",
+    "prepare": "npm run build"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@types/google-protobuf": "^3.7.2",
-    "@types/lodash": "^4.14.155",
     "@types/node": "^14.0.13",
     "prettier": "^2.0.5",
+    "rollup": "^2.18.1",
+    "tslib": "^2.0.0",
     "typescript": "^3.9.5"
   },
-  "dependencies": {
-    "google-protobuf": "^3.12.2",
-    "lodash": "^4.17.15",
-    "protobufjs": "^6.9.0",
-    "ts-protoc-gen": "^0.12.0"
-  }
+  "dependencies": {}
 }
