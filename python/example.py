@@ -1,5 +1,4 @@
-# from __init__ import ivms, normalized_json_output
-import generated as ivms
+from sygna_bridge_ivms_util import ivms
 import json
 
 # Originator
@@ -85,4 +84,5 @@ private_info = ivms.IdentityPayload()
 private_info.originator = originator
 private_info.beneficiary = beneficiary
 
+# pretty print json
 print(json.dumps(private_info.to_dict(), indent=2, ensure_ascii=False))

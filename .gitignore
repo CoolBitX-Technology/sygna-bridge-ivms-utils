@@ -6,3 +6,5 @@ generated/
 tmp/
 .project
 *.tgz
+venv
+*.egg-info
