@@ -1,4 +1,4 @@
-import * as ivms from ".";
+const ivms = require("@sygna/bridge-ivms-util");
 
 // Originator
 // originator name id
