@@ -92,6 +92,52 @@ export class {{classname}} {
         return value;
         {{/hasVars}}
     }
+
+    public static deserilizeFromJson(json: any): {{classname}} {
+        {{#hasVars}}
+        if ((json === undefined) || (json === null)) {
+            return json;
+        }
+        {{#vars}}
+        {{#isPrimitiveType}}
+        {{#isDate}}
+        const {{name}} = {{^required}}!json.{{baseName}} ? undefined : {{/required}}({{#isNullable}}json['{{baseName}}'] === null ? null : {{/isNullable}}new Date(json['{{baseName}}'])),
+        {{/isDate}}
+        {{#isDateTime}}
+        const {{name}} = {{^required}}!json.{{baseName}} ? undefined : {{/required}}({{#isNullable}}json['{{baseName}}'] === null ? null : {{/isNullable}}new Date(json['{{baseName}}']))
+        {{/isDateTime}}
+        {{^isDate}}
+        {{^isDateTime}}
+        const {{name}} = {{^required}}!json.{{baseName}} ? undefined : {{/required}}json['{{baseName}}']
+        {{/isDateTime}}
+        {{/isDate}}
+        {{/isPrimitiveType}}
+        {{^isPrimitiveType}}
+        {{#isListContainer}}
+        const {{name}} = {{^required}}!json.{{baseName}} ? undefined : {{/required}}({{#isNullable}}json['{{baseName}}'] === null ? null : {{/isNullable}}(json['{{baseName}}'] as Array<any>).map((e) => {{#items}}{{datatype}}{{/items}}.deserilizeFromJson(e)))
+        {{/isListContainer}}
+        {{#isMapContainer}}
+        const {{name}} = {{^required}}!json.{{baseName}} ? undefined : {{/required}}({{#isNullable}}json['{{baseName}}'] === null ? null : {{/isNullable}}mapValues(json['{{baseName}}'], {{#items}}{{datatype}}{{/items}}.deserilizeFromJson))
+        {{/isMapContainer}}
+        {{^isListContainer}}
+        {{^isMapContainer}}
+        {{^isFreeFormObject}}
+        const {{name}} = {{datatype}}.deserilizeFromJson(json.{{baseName}})
+        {{/isFreeFormObject}}
+        {{#isFreeFormObject}}
+        const {{name}} = {{^required}}!json.{{baseName}} ? undefined : {{/required}}json['{{baseName}}'],
+        {{/isFreeFormObject}}
+        {{/isMapContainer}}
+        {{/isListContainer}}
+        {{/isPrimitiveType}}
+        {{/vars}}
+
+        return new {{classname}}({{#vars}}{{name}}{{^-last}}, {{/-last}}{{/vars}})
+        {{/hasVars}}
+        {{^hasVars}}
+        return json;
+        {{/hasVars}}
+    }
 }
 
 {{#hasEnums}}

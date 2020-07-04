@@ -1,15 +1,19 @@
 {
   "name": "@sygna/bridge-ivms-util",
-  "version": "1.0.0",
-  "description": "",
+  "version": "0.0.1-beta1",
+  "description": "The IVMS util is an open source library to help you generate the data for interVASP messaging within Sygna Bridge Ecosystem.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsc -b .",
     "prepare": "npm run build"
   },
-  "author": "",
-  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/CoolBitX-Technology/sygna-bridge-ivms-utils"
+  },
+  "author": "frank.chen@coolbitx.com",
+  "license": "MIT",
   "devDependencies": {
     "@types/node": "^14.0.13",
     "prettier": "^2.0.5",
