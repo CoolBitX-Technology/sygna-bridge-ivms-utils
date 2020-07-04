@@ -96,3 +96,7 @@ privateInfo.setBeneficiary(beneficiary);
 
 const jsonData = privateInfo.serializeToJson();
 console.log(JSON.stringify(jsonData, null, 2));
+
+// decode from json data
+const decoded = ivms.IdentityPayload.deserilizeFromJson(jsonData)
+console.log(JSON.stringify(decoded.serializeToJson(), null, 2))
