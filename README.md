@@ -1,7 +1,7 @@
 # Sygna Bridge IVMS Utils
 The IVMS util is an open source library to help you generate the data for interVASP messaging within Sygna Bridge Ecosystem.
 
-> Please navigate to language specific packages to watch detailed description.
+> Please navigate to language specific packages to see detailed description.
 
 ## If you want to generate this util for you language
 * Navigate to https://github.com/OpenAPITools/openapi-generator and install openapi code generator in your system

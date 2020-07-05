@@ -31,7 +31,13 @@
         "name_identifier_type": {
           "title": "NaturalPersonNameTypeCode",
           "type": "string",
-          "enum": ["ALIA", "BIRT", "MAID", "LEGL", "MISC"]
+          "enum": [
+            "ALIA",
+            "BIRT",
+            "MAID",
+            "LEGL",
+            "MISC"
+          ]
         }
       }
     },
@@ -45,7 +51,11 @@
         "legal_person_name_identifier_type": {
           "title": "LegalPersonNameTypeCode",
           "type": "string",
-          "enum": ["LEGL", "SHRT", "TRAD"]
+          "enum": [
+            "LEGL",
+            "SHRT",
+            "TRAD"
+          ]
         }
       }
     },
@@ -56,7 +66,11 @@
         "address_type": {
           "title": "AddressTypeCode",
           "type": "string",
-          "enum": ["HOME", "BIZZ", "GEOG"]
+          "enum": [
+            "HOME",
+            "BIZZ",
+            "GEOG"
+          ]
         },
         "department": {
           "type": "string"
@@ -215,7 +229,13 @@
         "name_identifier_type": {
           "title": "NaturalPersonNameTypeCode",
           "type": "string",
-          "enum": ["ALIA", "BIRT", "MAID", "LEGL", "MISC"]
+          "enum": [
+            "ALIA",
+            "BIRT",
+            "MAID",
+            "LEGL",
+            "MISC"
+          ]
         }
       }
     },
@@ -289,7 +309,11 @@
         "legal_person_name_identifier_type": {
           "title": "LegalPersonNameTypeCode",
           "type": "string",
-          "enum": ["LEGL", "SHRT", "TRAD"]
+          "enum": [
+            "LEGL",
+            "SHRT",
+            "TRAD"
+          ]
         }
       }
     },
@@ -363,14 +387,9 @@
     },
     "TransferPath": {
       "title": "TransferPath",
-      "type": "object",
-      "properties": {
-        "transfer_path": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/IntermediaryVasp"
-          }
-        }
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/IntermediaryVasp"
       }
     },
     "PayloadMetadata": {
@@ -428,17 +447,31 @@
     "NaturalPersonNameTypeCode": {
       "title": "NaturalPersonNameTypeCode",
       "type": "string",
-      "enum": ["ALIA", "BIRT", "MAID", "LEGL", "MISC"]
+      "enum": [
+        "ALIA",
+        "BIRT",
+        "MAID",
+        "LEGL",
+        "MISC"
+      ]
     },
     "LegalPersonNameTypeCode": {
       "title": "LegalPersonNameTypeCode",
       "type": "string",
-      "enum": ["LEGL", "SHRT", "TRAD"]
+      "enum": [
+        "LEGL",
+        "SHRT",
+        "TRAD"
+      ]
     },
     "AddressTypeCode": {
       "title": "AddressTypeCode",
       "type": "string",
-      "enum": ["_HOME", "BIZZ", "GEOG"]
+      "enum": [
+        "HOME",
+        "BIZZ",
+        "GEOG"
+      ]
     },
     "NationalIdentifierTypeCode": {
       "title": "NationalIdentifierTypeCode",

@@ -23,7 +23,7 @@ phases:
           -g python \
           -t /local/python/template \
           -o /local/tmp
-      - mv ./tmp/openapi_client/models/* ./python/generated/
+      - mv ./tmp/openapi_client/models/* ./python/src/sygna_bridge_ivms_util/generated/
       - rm -r ./tmp
       - |
         docker run --rm -it -v "$(pwd):/local" openapitools/openapi-generator-cli \
