@@ -8,3 +8,4 @@ tmp/
 *.tgz
 venv
 *.egg-info
+.vscode
