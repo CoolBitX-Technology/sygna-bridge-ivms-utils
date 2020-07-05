@@ -1,0 +1,160 @@
+{{#hasImports}}
+import {
+    {{#imports}}
+    {{{.}}},
+    {{/imports}}
+} from './';
+
+{{/hasImports}}
+{{#discriminator}}
+import {
+{{#discriminator.mappedModels}}
+     {{modelName}}FromJSONTyped{{^-last}},{{/-last}}
+{{/discriminator.mappedModels}}
+} from './';
+
+{{/discriminator}}
+/**
+ * {{#lambda.indented_star_1}}{{{unescapedDescription}}}{{/lambda.indented_star_1}}
+ * @export
+ * @interface {{classname}}
+ */
+export class {{classname}} {
+    constructor(
+        {{#vars}}
+        public {{#isReadOnly}}readonly {{/isReadOnly}}{{name}}{{^required}}?{{/required}}: {{#isEnum}}{{{datatypeWithEnum}}}{{/isEnum}}{{^isEnum}}{{{datatype}}}{{#isNullable}} | null{{/isNullable}}{{/isEnum}},
+        {{/vars}}
+    ) {}
+
+    {{#vars}}
+    {{^isListContainer}}
+    public {{setter}}({{name}}: {{#isEnum}}{{{datatypeWithEnum}}}{{/isEnum}}{{^isEnum}}{{{datatype}}}{{/isEnum}}) {
+        this.{{name}} = {{name}}
+    }
+    
+    public {{getter}}(): {{#isEnum}}{{{datatypeWithEnum}}}{{^required}} | undefined{{/required}}{{/isEnum}}{{^isEnum}}{{{datatype}}}{{#isNullable}} | null{{/isNullable}}{{^required}} | undefined{{/required}}{{/isEnum}} {
+        return this.{{name}}
+    }
+    {{/isListContainer}}
+
+    {{#isListContainer}}
+    public add{{nameInCamelCase}}({{name}}: {{#isEnum}}{{classname}}{{enumName}}{{/isEnum}}{{^isEnum}}{{#items}}{{{datatype}}}{{/items}}{{/isEnum}}) {
+        if(!this.{{name}}) {
+            this.{{name}} = [{{name}}]
+        } else {
+            this.{{name}}.push({{name}})
+        }
+    }
+
+    public {{getter}}(): {{#isEnum}}{{{datatypeWithEnum}}}{{^required}} | undefined{{/required}}{{/isEnum}}{{^isEnum}}{{{datatype}}}{{#isNullable}} | null{{/isNullable}}{{^required}} | undefined{{/required}}{{/isEnum}} {
+        return this.{{name}}
+    }
+    {{/isListContainer}}
+
+    {{/vars}}
+
+    public serializeToJson(): any {
+        {{#hasVars}}
+        const retVal: {[x:string]: any} = {};
+        {{#vars}}
+        if(this.{{name}}) {
+            {{^isReadOnly}}
+            {{#isPrimitiveType}}
+            retVal['{{baseName}}'] = {{#isDate}}{{^required}}this.{{name}} === undefined ? undefined : {{/required}}({{#isNullable}}this.{{name}} === null ? null : {{/isNullable}}this.{{name}}.toISOString().substr(0,10)){{/isDate}}{{#isDateTime}}{{^required}}this.{{name}} === undefined ? undefined : {{/required}}({{#isNullable}}this.{{name}} === null ? null : {{/isNullable}}this.{{name}}.toISOString()){{/isDateTime}}{{^isDate}}{{^isDateTime}}this.{{name}}{{/isDateTime}}{{/isDate}};
+            {{/isPrimitiveType}}
+            {{^isPrimitiveType}}
+            {{#isListContainer}}
+            retVal['{{baseName}}'] = this.{{name}}.map(e => e.serializeToJson());
+            {{/isListContainer}}
+            {{#isMapContainer}}
+            retVal['{{baseName}}'] = {{^required}}this.{{name}} === undefined ? undefined : {{/required}}({{#isNullable}}this.{{name}} === null ? null : {{/isNullable}}mapValues(this.{{name}}, {{#items}}{{datatype}}{{/items}}ToJSON));
+            {{/isMapContainer}}
+            {{^isListContainer}}
+            {{^isMapContainer}}
+            {{^isFreeFormObject}}
+            retVal['{{baseName}}'] = this.{{name}}.serializeToJson();
+            {{/isFreeFormObject}}
+            {{#isFreeFormObject}}
+            retVal['{{baseName}}'] = this.{{name}};
+            {{/isFreeFormObject}}
+            {{/isMapContainer}}
+            {{/isListContainer}}
+            {{/isPrimitiveType}}
+            {{/isReadOnly}}
+        }
+        {{/vars}}
+        if(Object.keys(retVal).length == 0) {
+            return undefined;
+        }
+        return retVal;
+        {{/hasVars}}
+        {{^hasVars}}
+        return value;
+        {{/hasVars}}
+    }
+
+    public static deserilizeFromJson(json: any): {{classname}} {
+        {{#hasVars}}
+        if ((json === undefined) || (json === null)) {
+            return json;
+        }
+        {{#vars}}
+        {{#isPrimitiveType}}
+        {{#isDate}}
+        const {{name}} = {{^required}}!json.{{baseName}} ? undefined : {{/required}}({{#isNullable}}json['{{baseName}}'] === null ? null : {{/isNullable}}new Date(json['{{baseName}}'])),
+        {{/isDate}}
+        {{#isDateTime}}
+        const {{name}} = {{^required}}!json.{{baseName}} ? undefined : {{/required}}({{#isNullable}}json['{{baseName}}'] === null ? null : {{/isNullable}}new Date(json['{{baseName}}']))
+        {{/isDateTime}}
+        {{^isDate}}
+        {{^isDateTime}}
+        const {{name}} = {{^required}}!json.{{baseName}} ? undefined : {{/required}}json['{{baseName}}']
+        {{/isDateTime}}
+        {{/isDate}}
+        {{/isPrimitiveType}}
+        {{^isPrimitiveType}}
+        {{#isListContainer}}
+        const {{name}} = {{^required}}!json.{{baseName}} ? undefined : {{/required}}({{#isNullable}}json['{{baseName}}'] === null ? null : {{/isNullable}}(json['{{baseName}}'] as Array<any>).map((e) => {{#items}}{{datatype}}{{/items}}.deserilizeFromJson(e)))
+        {{/isListContainer}}
+        {{#isMapContainer}}
+        const {{name}} = {{^required}}!json.{{baseName}} ? undefined : {{/required}}({{#isNullable}}json['{{baseName}}'] === null ? null : {{/isNullable}}mapValues(json['{{baseName}}'], {{#items}}{{datatype}}{{/items}}.deserilizeFromJson))
+        {{/isMapContainer}}
+        {{^isListContainer}}
+        {{^isMapContainer}}
+        {{^isFreeFormObject}}
+        const {{name}} = {{datatype}}.deserilizeFromJson(json.{{baseName}})
+        {{/isFreeFormObject}}
+        {{#isFreeFormObject}}
+        const {{name}} = {{^required}}!json.{{baseName}} ? undefined : {{/required}}json['{{baseName}}'],
+        {{/isFreeFormObject}}
+        {{/isMapContainer}}
+        {{/isListContainer}}
+        {{/isPrimitiveType}}
+        {{/vars}}
+
+        return new {{classname}}({{#vars}}{{name}}{{^-last}}, {{/-last}}{{/vars}})
+        {{/hasVars}}
+        {{^hasVars}}
+        return json;
+        {{/hasVars}}
+    }
+}
+
+{{#hasEnums}}
+{{#vars}}
+{{#isEnum}}
+/**
+* @export
+* @enum {string}
+*/
+export enum {{classname}}{{enumName}} {
+{{#allowableValues}}
+    {{#enumVars}}
+    {{{name}}} = {{{value}}}{{^-last}},{{/-last}}
+    {{/enumVars}}
+{{/allowableValues}}
+}
+{{/isEnum}}
+{{/vars}}
+
+{{/hasEnums}}

@@ -1,0 +1,1 @@
+from sygna_bridge_ivms_util import generated as ivms
