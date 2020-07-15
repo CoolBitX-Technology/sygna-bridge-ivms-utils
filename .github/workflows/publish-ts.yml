@@ -1,0 +1,44 @@
+name: Publish Typescript package
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - typescript/*
+      - bridge_and_ivms.json
+      - .github/workflows/publish-ts.yml
+
+defaults:
+  run:
+    working-directory: typescript
+
+jobs:
+  publish-ts:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Download OpenAPI codegen jar
+        run: |
+          wget https://repo1.maven.org/maven2/org/openapitools/openapi-generator-cli/5.0.0-beta/openapi-generator-cli-5.0.0-beta.jar -O ../gen.jar
+      
+      - name: Generate Typescript code
+        run: |
+          java -jar ../gen.jar \
+            generate -i ../bridge_and_ivms.json \
+            -g typescript-fetch \
+            -t ./template \
+            -o ../tmp
+          mv ../tmp/models/* ./src/generated/
+          rm -rf ../tmp
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: '12.12.0'
+          registry-url: https://registry.npmjs.org/
+      - name: Publish Node.js package
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

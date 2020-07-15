@@ -1,0 +1,14 @@
+{
+  "groupId": "io.sygna",
+  "artifactId": "sygna-bridge-ivms-util-j",
+  "modelPackage": "io.sygna.ivms.model",
+  "apiPackage": "io.sygna.ivms.api",
+  "artifactVersion": "0.0.5",
+  "scmConnection": "scm:git:https://github.com/CoolBitX-Technology/sygna-bridge-ivms-utils.git",
+  "scmDeveloperConnection": "scm:git:https://github.com/CoolBitX-Technology/sygna-bridge-ivms-utils.git",
+  "scmUrl": "https://github.com/CoolBitX-Technology/sygna-bridge-ivms-utils/tree/master/java",
+  "developerEmail": "frank.chen@coolbitx.com",
+  "developerName": "Frank Chen",
+  "licenseName": "The MIT License",
+  "licenseUrl": "http://www.opensource.org/licenses/mit-license.php"
+}
