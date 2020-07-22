@@ -1,9 +1,21 @@
 # Sygna Bridge IVMS Util For Java
-[<img src="https://img.shields.io/maven-central/v/org.sygna.bridge/ivms-util?style=for-the-badge">](https://mvnrepository.com/artifact/org.sygna.bridge/ivms-util)
+[<img src="https://img.shields.io/maven-central/v/com.coolbitx.sygna/sygna-bridge-ivms-util-j?style=for-the-badge">](https://mvnrepository.com/artifact/com.coolbitx.sygna/sygna-bridge-ivms-util-j)
 
 ## Installation
+
+### Add to your project's pom.xml
+```xml
+<dependencies>
+  <dependency>
+    <groupId>com.coolbitx.sygna</groupId>
+    <artifactId>sygna-bridge-ivms-util-j</artifactId>
+    <version>0.0.1</version>
+  </dependency>
+</dependencies>
 ```
-#todo
+### Install dependencies
+```
+mvn install
 ```
 
 ## Example

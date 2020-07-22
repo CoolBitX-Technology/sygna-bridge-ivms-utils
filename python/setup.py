@@ -21,7 +21,7 @@ def get_requirements():
 
 setup(
     name='sygna-bridge-ivms-util',
-    version='0.0.3',
+    version='0.0.5',
     packages=find_packages("src"),
     package_dir={"": "src"},
     install_requires=get_requirements(),
@@ -29,7 +29,7 @@ setup(
     license='MIT',
     author='frank.chen',
     author_email='frank.chen@coolbitx.com',
-    description='This is a Python library from building IVMS data structure.',
+    description='This is a Python library for building IVMS data structure.',
     long_description=read("./README.md"),
     long_description_content_type='text/markdown',
     keywords="sygna-bridge-util sygna bridge sygna-bridge ecosystem ivms",

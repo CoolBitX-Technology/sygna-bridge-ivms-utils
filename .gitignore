@@ -2,10 +2,16 @@ build
 dist
 node_modules
 __pycache__
-generated/
+**/generated/*
+!**/generated/.gitkeep
 tmp/
 .project
+.classpath
 *.tgz
 venv
 *.egg-info
 .vscode
+java/example/target
+java/example/.settings
+openapi-generator-cli.jar
+gen.jar
