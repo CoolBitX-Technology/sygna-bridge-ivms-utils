@@ -35,8 +35,8 @@ jobs:
 
       - name: Commit generated golang code
         run: |
-          git config --global user.name 'Github Action'
-          git config --global user.email 'github-action@users.noreply.github.com'
+          git config --global user.name 'tech-sygna'
+          git config --global user.email 'sygna.tech@coolbitx.com'
           if [[ ! -z $(git status --short) ]]
           then
             git add .
