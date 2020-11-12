@@ -6,7 +6,7 @@
 
   <groupId>io.sygna</groupId>
   <artifactId>sygna-bridge-ivms-util-example</artifactId>
-  <version>1.0</version>
+  <version>1.0.1</version>
 
   <name>sygna-bridge-ivms-util-example</name>
   <!-- FIXME change it to the project's website -->
