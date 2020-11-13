@@ -1,0 +1,26 @@
+version: 2
+updates:
+  # typescript
+  - package-ecosystem: "npm"
+    directory: "/typescript"
+    schedule:
+      interval: "daily"
+    target-branch: "dev"
+  # go
+  - package-ecosystem: "gomod"
+    directory: "/golang"
+    schedule:
+      interval: "daily"
+    target-branch: "dev"
+  # java
+  - package-ecosystem: "maven"
+    directory: "/java/example"
+    schedule:
+      interval: "daily"
+    target-branch: "dev"
+  # python
+  - package-ecosystem: "pip"
+    directory: "/python"
+    schedule:
+      interval: "daily"
+    target-branch: "dev"
