@@ -40,11 +40,23 @@ func main() {
 	orgPersonNationalID.SetNationalIdentifierType(string(ivms101.NATIONALIDENTIFIERTYPECODE_RAID))
 	orgPersonNationalID.SetRegistrationAuthority("RA000553")
 
+	// add geographic address info
+	orgPersonAddress := ivms101.NewAddress()
+	orgPersonAddress.SetAddressType(string(ivms101.ADDRESSTYPECODE_GEOG))
+	orgPersonAddress.SetStreetName("Potential Street")
+	orgPersonAddress.SetBuildingNumber("24")
+	orgPersonAddress.SetBuildingName("Weathering Views")
+	orgPersonAddress.SetPostCode("91765")
+	orgPersonAddress.SetTownName("Walnut")
+	orgPersonAddress.SetCountrySubDivision("California")
+	orgPersonAddress.SetCountry("US")
+
 	// assign name, national id, country to originator natural person
 	originatingNaturalPerson := ivms101.NewNaturalPerson()
 	originatingNaturalPerson.SetName(*orgPersonName)
 	originatingNaturalPerson.SetNationalIdentification(*orgPersonNationalID)
 	originatingNaturalPerson.SetCountryOfResidence("TZ")
+	originatingNaturalPerson.SetGeographicAddresses([]ivms101.Address{*orgPersonAddress})
 
 	// assign originator to person object
 	originatingPerson := ivms101.NewPerson()
@@ -54,6 +66,33 @@ func main() {
 	originator := ivms101.NewOriginator()
 	originator.SetOriginatorPersons([]ivms101.Person{*originatingPerson})
 	originator.SetAccountNumbers([]string{"1BvBMSEYstWetqTFn5Au4m4GFg7xJaNVN2"})
+
+	// construct originating vasp
+	// name id for originating vasp
+	origVaspNameID := ivms101.NewLegalPersonNameId()
+	origVaspNameID.SetLegalPersonName("VASP A")
+	origVaspNameID.SetLegalPersonNameIdentifierType(string(ivms101.LEGALPERSONNAMETYPECODE_LEGL))
+
+	// name for originating vasp
+	origVaspName := ivms101.NewLegalPersonName()
+	origVaspName.SetNameIdentifiers([]ivms101.LegalPersonNameId{*origVaspNameID})
+
+	// national ID for originating vasp
+	origVaspNationalID := ivms101.NewNationalIdentification()
+	origVaspNationalID.SetNationalIdentifier("3M5E1GQKGL17HI8CPN20")
+	origVaspNationalID.SetNationalIdentifierType(string(ivms101.NATIONALIDENTIFIERTYPECODE_LEIX))
+
+	// legal person for originating vasp
+	origVaspLegalPerson := ivms101.NewLegalPerson()
+	origVaspLegalPerson.SetName(*origVaspName)
+	origVaspLegalPerson.SetNationalIdentification(*origVaspNationalID)
+
+	// person for originating vasp
+	origVaspPerson := ivms101.NewPerson()
+	origVaspPerson.SetLegalPerson(*origVaspLegalPerson)
+
+	origVasp := ivms101.NewOriginatingVasp()
+	origVasp.SetOriginatingVasp(*origVaspPerson)
 
 	// Beneficiary
 	// beneficiary 1 name id
@@ -97,6 +136,7 @@ func main() {
 	// assign originator and beneficiary data to identity payload
 	privateInfo := ivms101.NewIdentityPayload()
 	privateInfo.SetOriginator(*originator)
+	privateInfo.SetOriginatingVasp(*origVasp)
 	privateInfo.SetBeneficiary(*beneficiary)
 
 	// to json
