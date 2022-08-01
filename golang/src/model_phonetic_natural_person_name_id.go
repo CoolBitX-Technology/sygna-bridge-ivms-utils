@@ -15,9 +15,9 @@ import (
 
 // PhoneticNaturalPersonNameId struct for PhoneticNaturalPersonNameId
 type PhoneticNaturalPersonNameId struct {
-	PrimaryIdentifier   *string `json:"primary_identifier,omitempty"`
+	PrimaryIdentifier *string `json:"primary_identifier,omitempty"`
 	SecondaryIdentifier *string `json:"secondary_identifier,omitempty"`
-	NameIdentifierType  *string `json:"name_identifier_type,omitempty"`
+	NameIdentifierType *string `json:"name_identifier_type,omitempty"`
 }
 
 // NewPhoneticNaturalPersonNameId instantiates a new PhoneticNaturalPersonNameId object
@@ -182,3 +182,5 @@ func (v *NullablePhoneticNaturalPersonNameId) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

@@ -15,7 +15,7 @@ import (
 
 // PhoneticLegalPersonNameId struct for PhoneticLegalPersonNameId
 type PhoneticLegalPersonNameId struct {
-	LegalPersonName               *string `json:"legal_person_name,omitempty"`
+	LegalPersonName *string `json:"legal_person_name,omitempty"`
 	LegalPersonNameIdentifierType *string `json:"legal_person_name_identifier_type,omitempty"`
 }
 
@@ -146,3 +146,5 @@ func (v *NullablePhoneticLegalPersonNameId) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

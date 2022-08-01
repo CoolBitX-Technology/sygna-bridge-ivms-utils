@@ -15,8 +15,8 @@ import (
 
 // NaturalPersonName struct for NaturalPersonName
 type NaturalPersonName struct {
-	NameIdentifiers         *[]NaturalPersonNameId         `json:"name_identifiers,omitempty"`
-	LocalNameIdentifiers    *[]LocalNaturalPersonNameId    `json:"local_name_identifiers,omitempty"`
+	NameIdentifiers *[]NaturalPersonNameId `json:"name_identifiers,omitempty"`
+	LocalNameIdentifiers *[]LocalNaturalPersonNameId `json:"local_name_identifiers,omitempty"`
 	PhoneticNameIdentifiers *[]PhoneticNaturalPersonNameId `json:"phonetic_name_identifiers,omitempty"`
 }
 
@@ -102,9 +102,9 @@ func (o *NaturalPersonName) SetLocalNameIdentifiers(v []LocalNaturalPersonNameId
 }
 
 // GetPhoneticNameIdentifiers returns the PhoneticNameIdentifiers field value if set, zero value otherwise.
-func (o *NaturalPersonName) GetPhoneticNameIdentifiers() []LocalNaturalPersonNameId {
+func (o *NaturalPersonName) GetPhoneticNameIdentifiers() []PhoneticNaturalPersonNameId {
 	if o == nil || o.PhoneticNameIdentifiers == nil {
-		var ret []LocalNaturalPersonNameId
+		var ret []PhoneticNaturalPersonNameId
 		return ret
 	}
 	return *o.PhoneticNameIdentifiers
@@ -112,7 +112,7 @@ func (o *NaturalPersonName) GetPhoneticNameIdentifiers() []LocalNaturalPersonNam
 
 // GetPhoneticNameIdentifiersOk returns a tuple with the PhoneticNameIdentifiers field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *NaturalPersonName) GetPhoneticNameIdentifiersOk() (*[]LocalNaturalPersonNameId, bool) {
+func (o *NaturalPersonName) GetPhoneticNameIdentifiersOk() (*[]PhoneticNaturalPersonNameId, bool) {
 	if o == nil || o.PhoneticNameIdentifiers == nil {
 		return nil, false
 	}
@@ -128,8 +128,8 @@ func (o *NaturalPersonName) HasPhoneticNameIdentifiers() bool {
 	return false
 }
 
-// SetPhoneticNameIdentifiers gets a reference to the given []LocalNaturalPersonNameId and assigns it to the PhoneticNameIdentifiers field.
-func (o *NaturalPersonName) SetPhoneticNameIdentifiers(v []LocalNaturalPersonNameId) {
+// SetPhoneticNameIdentifiers gets a reference to the given []PhoneticNaturalPersonNameId and assigns it to the PhoneticNameIdentifiers field.
+func (o *NaturalPersonName) SetPhoneticNameIdentifiers(v []PhoneticNaturalPersonNameId) {
 	o.PhoneticNameIdentifiers = &v
 }
 
@@ -182,3 +182,5 @@ func (v *NullableNaturalPersonName) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

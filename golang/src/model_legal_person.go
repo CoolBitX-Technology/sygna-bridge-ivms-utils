@@ -15,12 +15,11 @@ import (
 
 // LegalPerson struct for LegalPerson
 type LegalPerson struct {
-	Name                   *LegalPersonName        `json:"name,omitempty"`
-	GeographicAddresses    *[]Address              `json:"geographic_addresses,omitempty"`
-	CustomerIdentification *string                 `json:"customer_identification,omitempty"`
-	CustomerNumber         *string                 `json:"customer_number,omitempty"` //deprecated
+	Name *LegalPersonName `json:"name,omitempty"`
+	GeographicAddresses *[]Address `json:"geographic_addresses,omitempty"`
+	CustomerIdentification *string `json:"customer_identification,omitempty"`
 	NationalIdentification *NationalIdentification `json:"national_identification,omitempty"`
-	CountryOfRegistration  *string                 `json:"country_of_registration,omitempty"`
+	CountryOfRegistration *string `json:"country_of_registration,omitempty"`
 }
 
 // NewLegalPerson instantiates a new LegalPerson object
@@ -134,38 +133,6 @@ func (o *LegalPerson) HasCustomerIdentification() bool {
 // SetCustomerIdentification gets a reference to the given string and assigns it to the CustomerIdentification field.
 func (o *LegalPerson) SetCustomerIdentification(v string) {
 	o.CustomerIdentification = &v
-}
-
-// GetCustomerNumber [deprecated] returns the CustomerNumber field value if set, zero value otherwise.
-func (o *LegalPerson) GetCustomerNumber() string {
-	if o == nil || o.CustomerNumber == nil {
-		var ret string
-		return ret
-	}
-	return *o.CustomerNumber
-}
-
-// GetCustomerNumberOk [deprecated] returns a tuple with the CustomerNumber field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *LegalPerson) GetCustomerNumberOk() (*string, bool) {
-	if o == nil || o.CustomerNumber == nil {
-		return nil, false
-	}
-	return o.CustomerNumber, true
-}
-
-// HasCustomerNumber [deprecated] returns a boolean if a field has been set.
-func (o *LegalPerson) HasCustomerNumber() bool {
-	if o != nil && o.CustomerNumber != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetCustomerNumber [deprecated] gets a reference to the given string and assigns it to the CustomerNumber field.
-func (o *LegalPerson) SetCustomerNumber(v string) {
-	o.CustomerNumber = &v
 }
 
 // GetNationalIdentification returns the NationalIdentification field value if set, zero value otherwise.
@@ -287,3 +254,5 @@ func (v *NullableLegalPerson) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+
