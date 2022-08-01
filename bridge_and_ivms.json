@@ -41,8 +41,49 @@
         }
       }
     },
+    "PhoneticNaturalPersonNameId": {
+      "title": "PhoneticNaturalPersonNameId",
+      "type": "object",
+      "properties": {
+        "primary_identifier": {
+          "type": "string"
+        },
+        "secondary_identifier": {
+          "type": "string"
+        },
+        "name_identifier_type": {
+          "title": "NaturalPersonNameTypeCode",
+          "type": "string",
+          "enum": [
+            "ALIA",
+            "BIRT",
+            "MAID",
+            "LEGL",
+            "MISC"
+          ]
+        }
+      }
+    },
     "LocalLegalPersonNameId": {
       "title": "LocalLegalPersonNameId",
+      "type": "object",
+      "properties": {
+        "legal_person_name": {
+          "type": "string"
+        },
+        "legal_person_name_identifier_type": {
+          "title": "LegalPersonNameTypeCode",
+          "type": "string",
+          "enum": [
+            "LEGL",
+            "SHRT",
+            "TRAD"
+          ]
+        }
+      }
+    },
+    "PhoneticLegalPersonNameId": {
+      "title": "PhoneticLegalPersonNameId",
       "type": "object",
       "properties": {
         "legal_person_name": {
@@ -211,7 +252,7 @@
         "phonetic_name_identifiers": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/LocalNaturalPersonNameId"
+            "$ref": "#/definitions/PhoneticNaturalPersonNameId"
           }
         }
       }
@@ -264,7 +305,7 @@
             "$ref": "#/definitions/Address"
           }
         },
-        "customer_number": {
+        "customer_identification": {
           "type": "string"
         },
         "national_identification": {
@@ -294,7 +335,7 @@
         "phonetic_name_identifiers": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/LocalLegalPersonNameId"
+            "$ref": "#/definitions/PhoneticLegalPersonNameId"
           }
         }
       }

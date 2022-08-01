@@ -15,11 +15,11 @@ import (
 
 // LegalPerson struct for LegalPerson
 type LegalPerson struct {
-	Name *LegalPersonName `json:"name,omitempty"`
-	GeographicAddresses *[]Address `json:"geographic_addresses,omitempty"`
-	CustomerNumber *string `json:"customer_number,omitempty"`
+	Name                   *LegalPersonName        `json:"name,omitempty"`
+	GeographicAddresses    *[]Address              `json:"geographic_addresses,omitempty"`
+	CustomerIdentification *string                 `json:"customer_identification,omitempty"`
 	NationalIdentification *NationalIdentification `json:"national_identification,omitempty"`
-	CountryOfRegistration *string `json:"country_of_registration,omitempty"`
+	CountryOfRegistration  *string                 `json:"country_of_registration,omitempty"`
 }
 
 // NewLegalPerson instantiates a new LegalPerson object
@@ -103,36 +103,36 @@ func (o *LegalPerson) SetGeographicAddresses(v []Address) {
 	o.GeographicAddresses = &v
 }
 
-// GetCustomerNumber returns the CustomerNumber field value if set, zero value otherwise.
-func (o *LegalPerson) GetCustomerNumber() string {
-	if o == nil || o.CustomerNumber == nil {
+// GetCustomerIdentification returns the CustomerIdentification field value if set, zero value otherwise.
+func (o *LegalPerson) GetCustomerIdentification() string {
+	if o == nil || o.CustomerIdentification == nil {
 		var ret string
 		return ret
 	}
-	return *o.CustomerNumber
+	return *o.CustomerIdentification
 }
 
-// GetCustomerNumberOk returns a tuple with the CustomerNumber field value if set, nil otherwise
+// GetCustomerIdentificationOk returns a tuple with the CustomerIdentification field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LegalPerson) GetCustomerNumberOk() (*string, bool) {
-	if o == nil || o.CustomerNumber == nil {
+func (o *LegalPerson) GetCustomerIdentificationOk() (*string, bool) {
+	if o == nil || o.CustomerIdentification == nil {
 		return nil, false
 	}
-	return o.CustomerNumber, true
+	return o.CustomerIdentification, true
 }
 
-// HasCustomerNumber returns a boolean if a field has been set.
-func (o *LegalPerson) HasCustomerNumber() bool {
-	if o != nil && o.CustomerNumber != nil {
+// HasCustomerIdentification returns a boolean if a field has been set.
+func (o *LegalPerson) HasCustomerIdentification() bool {
+	if o != nil && o.CustomerIdentification != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetCustomerNumber gets a reference to the given string and assigns it to the CustomerNumber field.
-func (o *LegalPerson) SetCustomerNumber(v string) {
-	o.CustomerNumber = &v
+// SetCustomerIdentification gets a reference to the given string and assigns it to the CustomerIdentification field.
+func (o *LegalPerson) SetCustomerIdentification(v string) {
+	o.CustomerIdentification = &v
 }
 
 // GetNationalIdentification returns the NationalIdentification field value if set, zero value otherwise.
@@ -207,8 +207,8 @@ func (o LegalPerson) MarshalJSON() ([]byte, error) {
 	if o.GeographicAddresses != nil {
 		toSerialize["geographic_addresses"] = o.GeographicAddresses
 	}
-	if o.CustomerNumber != nil {
-		toSerialize["customer_number"] = o.CustomerNumber
+	if o.CustomerIdentification != nil {
+		toSerialize["customer_identification"] = o.CustomerIdentification
 	}
 	if o.NationalIdentification != nil {
 		toSerialize["national_identification"] = o.NationalIdentification
@@ -254,5 +254,3 @@ func (v *NullableLegalPerson) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-
