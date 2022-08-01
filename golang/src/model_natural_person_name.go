@@ -15,9 +15,9 @@ import (
 
 // NaturalPersonName struct for NaturalPersonName
 type NaturalPersonName struct {
-	NameIdentifiers *[]NaturalPersonNameId `json:"name_identifiers,omitempty"`
-	LocalNameIdentifiers *[]LocalNaturalPersonNameId `json:"local_name_identifiers,omitempty"`
-	PhoneticNameIdentifiers *[]LocalNaturalPersonNameId `json:"phonetic_name_identifiers,omitempty"`
+	NameIdentifiers         *[]NaturalPersonNameId         `json:"name_identifiers,omitempty"`
+	LocalNameIdentifiers    *[]LocalNaturalPersonNameId    `json:"local_name_identifiers,omitempty"`
+	PhoneticNameIdentifiers *[]PhoneticNaturalPersonNameId `json:"phonetic_name_identifiers,omitempty"`
 }
 
 // NewNaturalPersonName instantiates a new NaturalPersonName object
@@ -182,5 +182,3 @@ func (v *NullableNaturalPersonName) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-
