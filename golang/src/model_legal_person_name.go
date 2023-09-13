@@ -17,7 +17,7 @@ import (
 type LegalPersonName struct {
 	NameIdentifiers *[]LegalPersonNameId `json:"name_identifiers,omitempty"`
 	LocalNameIdentifiers *[]LocalLegalPersonNameId `json:"local_name_identifiers,omitempty"`
-	PhoneticNameIdentifiers *[]LocalLegalPersonNameId `json:"phonetic_name_identifiers,omitempty"`
+	PhoneticNameIdentifiers *[]PhoneticLegalPersonNameId `json:"phonetic_name_identifiers,omitempty"`
 }
 
 // NewLegalPersonName instantiates a new LegalPersonName object
@@ -102,9 +102,9 @@ func (o *LegalPersonName) SetLocalNameIdentifiers(v []LocalLegalPersonNameId) {
 }
 
 // GetPhoneticNameIdentifiers returns the PhoneticNameIdentifiers field value if set, zero value otherwise.
-func (o *LegalPersonName) GetPhoneticNameIdentifiers() []LocalLegalPersonNameId {
+func (o *LegalPersonName) GetPhoneticNameIdentifiers() []PhoneticLegalPersonNameId {
 	if o == nil || o.PhoneticNameIdentifiers == nil {
-		var ret []LocalLegalPersonNameId
+		var ret []PhoneticLegalPersonNameId
 		return ret
 	}
 	return *o.PhoneticNameIdentifiers
@@ -112,7 +112,7 @@ func (o *LegalPersonName) GetPhoneticNameIdentifiers() []LocalLegalPersonNameId 
 
 // GetPhoneticNameIdentifiersOk returns a tuple with the PhoneticNameIdentifiers field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LegalPersonName) GetPhoneticNameIdentifiersOk() (*[]LocalLegalPersonNameId, bool) {
+func (o *LegalPersonName) GetPhoneticNameIdentifiersOk() (*[]PhoneticLegalPersonNameId, bool) {
 	if o == nil || o.PhoneticNameIdentifiers == nil {
 		return nil, false
 	}
@@ -128,8 +128,8 @@ func (o *LegalPersonName) HasPhoneticNameIdentifiers() bool {
 	return false
 }
 
-// SetPhoneticNameIdentifiers gets a reference to the given []LocalLegalPersonNameId and assigns it to the PhoneticNameIdentifiers field.
-func (o *LegalPersonName) SetPhoneticNameIdentifiers(v []LocalLegalPersonNameId) {
+// SetPhoneticNameIdentifiers gets a reference to the given []PhoneticLegalPersonNameId and assigns it to the PhoneticNameIdentifiers field.
+func (o *LegalPersonName) SetPhoneticNameIdentifiers(v []PhoneticLegalPersonNameId) {
 	o.PhoneticNameIdentifiers = &v
 }
 
