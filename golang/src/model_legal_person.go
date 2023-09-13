@@ -244,7 +244,7 @@ func (o LegalPerson) MarshalJSON() ([]byte, error) {
 		toSerialize["customer_identification"] = o.CustomerIdentification
 	}
 	if o.CustomerNumber != nil {
-		toSerialize["customer_number"] = o.CustomerNumber
+		toSerialize["customer_identification"] = o.CustomerNumber
 	}
 	if o.NationalIdentification != nil {
 		toSerialize["national_identification"] = o.NationalIdentification
