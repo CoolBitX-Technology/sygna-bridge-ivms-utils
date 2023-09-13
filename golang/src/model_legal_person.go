@@ -18,7 +18,7 @@ type LegalPerson struct {
 	Name                   *LegalPersonName        `json:"name,omitempty"`
 	GeographicAddresses    *[]Address              `json:"geographic_addresses,omitempty"`
 	CustomerIdentification *string                 `json:"customer_identification,omitempty"`
-	CustomerNumber         *string                 `json:"customer_number,omitempty"` //deprecated
+	CustomerNumber         *string                 `json:"customer_number,omitempty"`
 	NationalIdentification *NationalIdentification `json:"national_identification,omitempty"`
 	CountryOfRegistration  *string                 `json:"country_of_registration,omitempty"`
 }
