@@ -5,8 +5,8 @@ The IVMS util is an open source library to help you generate the data for interV
 
 ## If you want to generate this util for you language
 * Navigate to https://github.com/OpenAPITools/openapi-generator and install openapi code generator in your system
-* Execute openapi-codegen using `bridge_and_ivms.json` as input
-* For example:
+* Execute openapi-codegen using `bridge_and_ivms.json`, `bridge_and_ivms2020.json`, `bridge_and_ivms2023.json` as input
+* For example to generate TypeScript Fetch client:
   ```
   java -jar openapi-generator-cli.jar \
     generate -i path/to/bridge_and_ivms.json \
@@ -22,4 +22,4 @@ The IVMS util is an open source library to help you generate the data for interV
   ```
 * For more information about code generator, visit https://openapi-generator.tech/
 
-> IVMS definition is inspired by https://github.com/steegi/trisa/blob/ivms101_git_34/proto/ivms101/ivms101.proto
+> IVMS definition is inspired by https://www.intervasp.org/
