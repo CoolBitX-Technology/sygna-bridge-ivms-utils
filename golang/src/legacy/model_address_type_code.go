@@ -31,7 +31,7 @@ func (v *AddressTypeCode) UnmarshalJSON(src []byte) error {
 		return err
 	}
 	enumTypeValue := AddressTypeCode(value)
-	for _, existing := range []AddressTypeCode{ "HOME", "BIZZ", "GEOG",   } {
+	for _, existing := range []AddressTypeCode{"HOME", "BIZZ", "GEOG"} {
 		if existing == enumTypeValue {
 			*v = enumTypeValue
 			return nil
@@ -81,4 +81,3 @@ func (v *NullableAddressTypeCode) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
