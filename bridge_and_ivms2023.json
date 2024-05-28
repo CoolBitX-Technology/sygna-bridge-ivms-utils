@@ -181,6 +181,12 @@
           },
           "legalPerson": {
             "$ref": "#/definitions/LegalPerson"
+          },
+          "accountNumber": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
           }
         }
       },
