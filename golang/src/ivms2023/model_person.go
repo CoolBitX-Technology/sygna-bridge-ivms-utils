@@ -21,6 +21,7 @@ var _ MappedNullable = &Person{}
 type Person struct {
 	NaturalPerson *NaturalPerson `json:"naturalPerson,omitempty"`
 	LegalPerson *LegalPerson `json:"legalPerson,omitempty"`
+	AccountNumber []string `json:"accountNumber,omitempty"`
 }
 
 // NewPerson instantiates a new Person object
@@ -104,6 +105,38 @@ func (o *Person) SetLegalPerson(v LegalPerson) {
 	o.LegalPerson = &v
 }
 
+// GetAccountNumber returns the AccountNumber field value if set, zero value otherwise.
+func (o *Person) GetAccountNumber() []string {
+	if o == nil || IsNil(o.AccountNumber) {
+		var ret []string
+		return ret
+	}
+	return o.AccountNumber
+}
+
+// GetAccountNumberOk returns a tuple with the AccountNumber field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Person) GetAccountNumberOk() ([]string, bool) {
+	if o == nil || IsNil(o.AccountNumber) {
+		return nil, false
+	}
+	return o.AccountNumber, true
+}
+
+// HasAccountNumber returns a boolean if a field has been set.
+func (o *Person) HasAccountNumber() bool {
+	if o != nil && !IsNil(o.AccountNumber) {
+		return true
+	}
+
+	return false
+}
+
+// SetAccountNumber gets a reference to the given []string and assigns it to the AccountNumber field.
+func (o *Person) SetAccountNumber(v []string) {
+	o.AccountNumber = v
+}
+
 func (o Person) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -119,6 +152,9 @@ func (o Person) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.LegalPerson) {
 		toSerialize["legalPerson"] = o.LegalPerson
+	}
+	if !IsNil(o.AccountNumber) {
+		toSerialize["accountNumber"] = o.AccountNumber
 	}
 	return toSerialize, nil
 }
