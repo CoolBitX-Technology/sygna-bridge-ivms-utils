@@ -447,6 +447,38 @@
           "LEIX",
           "MISC"
         ]
+      },
+      "PayloadMetadata": {
+        "title": "PayloadMetadata",
+        "type": "object",
+        "properties": {
+          "transliterationMethod": {
+            "type": "array",
+            "items": {
+              "title": "transliterationMethod",
+              "type": "string",
+              "enum": [
+                "ARAB",
+                "ARAN",
+                "ARMN",
+                "CYRL",
+                "DEVA",
+                "GEOR",
+                "GREK",
+                "HANI",
+                "HEBR",
+                "KANA",
+                "KORE",
+                "THAI",
+                "OTHR"
+              ]
+            }
+          },
+          "payloadVersion":{
+            "title": "payloadVersion",
+            "type": "string"
+          }
+        }
       }
     }
   }
