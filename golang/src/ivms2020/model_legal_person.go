@@ -23,7 +23,7 @@ var _ MappedNullable = &LegalPerson{}
 type LegalPerson struct {
 	Name LegalPersonName `json:"name"`
 	GeographicAddress []Address `json:"geographicAddress,omitempty"`
-	CustomerNumber *string `json:"customerNumber,omitempty"`
+	CustomerIdentification *string `json:"customerIdentification,omitempty"`
 	NationalIdentification *NationalIdentification `json:"nationalIdentification,omitempty"`
 	CountryOfRegistration *string `json:"countryOfRegistration,omitempty"`
 }
@@ -104,36 +104,36 @@ func (o *LegalPerson) SetGeographicAddress(v []Address) {
 	o.GeographicAddress = v
 }
 
-// GetCustomerNumber returns the CustomerNumber field value if set, zero value otherwise.
-func (o *LegalPerson) GetCustomerNumber() string {
-	if o == nil || IsNil(o.CustomerNumber) {
+// GetCustomerIdentification returns the CustomerIdentification field value if set, zero value otherwise.
+func (o *LegalPerson) GetCustomerIdentification() string {
+	if o == nil || IsNil(o.CustomerIdentification) {
 		var ret string
 		return ret
 	}
-	return *o.CustomerNumber
+	return *o.CustomerIdentification
 }
 
-// GetCustomerNumberOk returns a tuple with the CustomerNumber field value if set, nil otherwise
+// GetCustomerIdentificationOk returns a tuple with the CustomerIdentification field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LegalPerson) GetCustomerNumberOk() (*string, bool) {
-	if o == nil || IsNil(o.CustomerNumber) {
+func (o *LegalPerson) GetCustomerIdentificationOk() (*string, bool) {
+	if o == nil || IsNil(o.CustomerIdentification) {
 		return nil, false
 	}
-	return o.CustomerNumber, true
+	return o.CustomerIdentification, true
 }
 
-// HasCustomerNumber returns a boolean if a field has been set.
-func (o *LegalPerson) HasCustomerNumber() bool {
-	if o != nil && !IsNil(o.CustomerNumber) {
+// HasCustomerIdentification returns a boolean if a field has been set.
+func (o *LegalPerson) HasCustomerIdentification() bool {
+	if o != nil && !IsNil(o.CustomerIdentification) {
 		return true
 	}
 
 	return false
 }
 
-// SetCustomerNumber gets a reference to the given string and assigns it to the CustomerNumber field.
-func (o *LegalPerson) SetCustomerNumber(v string) {
-	o.CustomerNumber = &v
+// SetCustomerIdentification gets a reference to the given string and assigns it to the CustomerIdentification field.
+func (o *LegalPerson) SetCustomerIdentification(v string) {
+	o.CustomerIdentification = &v
 }
 
 // GetNationalIdentification returns the NationalIdentification field value if set, zero value otherwise.
@@ -214,8 +214,8 @@ func (o LegalPerson) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.GeographicAddress) {
 		toSerialize["geographicAddress"] = o.GeographicAddress
 	}
-	if !IsNil(o.CustomerNumber) {
-		toSerialize["customerNumber"] = o.CustomerNumber
+	if !IsNil(o.CustomerIdentification) {
+		toSerialize["customerIdentification"] = o.CustomerIdentification
 	}
 	if !IsNil(o.NationalIdentification) {
 		toSerialize["nationalIdentification"] = o.NationalIdentification
