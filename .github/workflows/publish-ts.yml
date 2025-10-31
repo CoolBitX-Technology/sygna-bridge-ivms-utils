@@ -23,20 +23,31 @@ jobs:
         run: |
           wget https://repo1.maven.org/maven2/org/openapitools/openapi-generator-cli/5.0.0-beta/openapi-generator-cli-5.0.0-beta.jar -O ../gen.jar
       
-      - name: Generate Typescript code
+      - name: Generate Typescript legacy code
         run: |
+          mkdir -p ./src/generated/legacy
           java -jar ../gen.jar \
             generate -i ../bridge_and_ivms.json \
             -g typescript-fetch \
             -t ./template \
             -o ../tmp
-          mv ../tmp/models/* ./src/generated/
+          mv ../tmp/models/* ./src/generated/legacy/
+          rm -rf ../tmp
+      - name: Generate Typescript ivms2023 code
+        run: |
+          mkdir -p ./src/generated/ivms2023
+          java -jar ../gen.jar \
+            generate -i ../bridge_and_ivms2023.json \
+            -g typescript-fetch \
+            -t ./template \
+            -o ../tmp
+          mv ../tmp/models/* ./src/generated/ivms2023/
           rm -rf ../tmp
 
       - name: Setup Node.js
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v4
         with:
-          node-version: '12.12.0'
+          node-version: '20'
           registry-url: https://registry.npmjs.org/
       - name: Publish Node.js package
         run: npm publish
