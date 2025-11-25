@@ -51,6 +51,5 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-          registry-url: https://registry.npmjs.org/
       - name: Publish Node.js package
         run: npm publish --provenance --access public
