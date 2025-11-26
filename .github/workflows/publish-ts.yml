@@ -47,16 +47,12 @@ jobs:
           mv ../tmp/models/* ./src/generated/ivms2023/
           rm -rf ../tmp
       - name: Setup Node.js
-        id: setup-node                    # 加上 id，後面才能引用 outputs.token
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v4   
         with:
           node-version: '20'
           registry-url: 'https://registry.npmjs.org'
 
-      - name: Publish to npm with pure OIDC
-        env:
-          NODE_AUTH_TOKEN: ${{ steps.setup-node.outputs.token }}
+      - name: Publish to npm with Trusted OIDC (no token)
         run: |
-          echo "Logged in as: $(npm whoami)"
-          npm publish --access public --provenance
+          npm publish --access public
         working-directory: typescript
