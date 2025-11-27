@@ -47,15 +47,22 @@
             mv ../tmp/models/* ./src/generated/ivms2023/
             rm -rf ../tmp
         - name: Setup Node.js
-          uses: actions/setup-node@v4   
+          uses: actions/setup-node@v4
           with:
             node-version: '20'
-        - name: Configure Registry for Scope
-          run: npm config set @sygna:registry https://registry.npmjs.org/
-        
-        - name: Publish to npm (final working version)
+            # ❌ 不加 registry-url
+
+        - name: Install dependencies
+          run: npm ci
+
+        # ✅【最終奧義】手動產生 .npmrc (解決死結)
+        # 1. 指定 @sygna 走公有庫
+        # 2. 設定一個空的 authToken，騙過 ENEEDAUTH 檢查，讓 OIDC 有機會啟動
+        - name: Create Project .npmrc
           run: |
-            echo "Publishing version: $(node -p "require('./package.json').version")"
-            npm publish --provenance --access public --verbose || true
-            npm publish --provenance --access public --verbose
-          working-directory: typescript
+            echo "@sygna:registry=https://registry.npmjs.org/" > .npmrc
+            echo "//registry.npmjs.org/:_authToken=" >> .npmrc
+            cat .npmrc # 印出來確認
+
+        - name: Publish to npm
+          run: npm publish --provenance --access public --verbose
