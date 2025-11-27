@@ -1,58 +1,58 @@
-name: Publish Typescript package
-on:
-  push:
-    branches:
-      - master
-    paths:
-      - typescript/*
-      - bridge_and_ivms.json
-      - .github/workflows/publish-ts.yml
+  name: Publish Typescript package
+  on:
+    push:
+      branches:
+        - master
+      paths:
+        - typescript/*
+        - bridge_and_ivms.json
+        - .github/workflows/publish-ts.yml
 
-defaults:
-  run:
-    working-directory: typescript
+  defaults:
+    run:
+      working-directory: typescript
 
-jobs:
-  publish-ts:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      id-token: write
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+  jobs:
+    publish-ts:
+      runs-on: ubuntu-latest
+      permissions:
+        contents: read
+        id-token: write
+      steps:
+        - name: Checkout code
+          uses: actions/checkout@v4
 
-      - name: Download OpenAPI codegen jar
-        run: |
-          wget https://repo1.maven.org/maven2/org/openapitools/openapi-generator-cli/5.0.0-beta/openapi-generator-cli-5.0.0-beta.jar -O ../gen.jar
-      
-      - name: Generate Typescript legacy code
-        run: |
-          mkdir -p ./src/generated/legacy
-          java -jar ../gen.jar \
-            generate -i ../bridge_and_ivms.json \
-            -g typescript-fetch \
-            -t ./template \
-            -o ../tmp
-          mv ../tmp/models/* ./src/generated/legacy/
-          rm -rf ../tmp
-      - name: Generate Typescript ivms2023 code
-        run: |
-          mkdir -p ./src/generated/ivms2023
-          java -jar ../gen.jar \
-            generate -i ../bridge_and_ivms2023.json \
-            -g typescript-fetch \
-            -t ./template \
-            -o ../tmp
-          mv ../tmp/models/* ./src/generated/ivms2023/
-          rm -rf ../tmp
-      - name: Setup Node.js
-        uses: actions/setup-node@v4   
-        with:
-          node-version: '20'
-          registry-url: 'https://registry.npmjs.org'
-
-      - name: Publish to npm with Trusted OIDC (no token)
-        run: |
-          npm publish --access public
-        working-directory: typescript
+        - name: Download OpenAPI codegen jar
+          run: |
+            wget https://repo1.maven.org/maven2/org/openapitools/openapi-generator-cli/5.0.0-beta/openapi-generator-cli-5.0.0-beta.jar -O ../gen.jar
+        
+        - name: Generate Typescript legacy code
+          run: |
+            mkdir -p ./src/generated/legacy
+            java -jar ../gen.jar \
+              generate -i ../bridge_and_ivms.json \
+              -g typescript-fetch \
+              -t ./template \
+              -o ../tmp
+            mv ../tmp/models/* ./src/generated/legacy/
+            rm -rf ../tmp
+        - name: Generate Typescript ivms2023 code
+          run: |
+            mkdir -p ./src/generated/ivms2023
+            java -jar ../gen.jar \
+              generate -i ../bridge_and_ivms2023.json \
+              -g typescript-fetch \
+              -t ./template \
+              -o ../tmp
+            mv ../tmp/models/* ./src/generated/ivms2023/
+            rm -rf ../tmp
+        - name: Setup Node.js
+          uses: actions/setup-node@v4   
+          with:
+            node-version: '20'
+        - name: Configure Registry for Scope
+          run: npm config set @sygna:registry https://registry.npmjs.org/
+        
+        - name: Publish to npm
+          # 加上 --provenance 啟動 OIDC
+          run: npm publish --provenance --access public
