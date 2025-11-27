@@ -47,12 +47,48 @@
             mv ../tmp/models/* ./src/generated/ivms2023/
             rm -rf ../tmp
         - name: Setup Node.js
-          uses: actions/setup-node@v4   
+          uses: actions/setup-node@v4
           with:
             node-version: '20'
-        - name: Configure Registry for Scope
-          run: npm config set @sygna:registry https://registry.npmjs.org/
-        
-        - name: Publish to npm
-          # 加上 --provenance 啟動 OIDC
-          run: npm publish --provenance --access public
+
+        - name: Install dependencies
+          run: npm ci
+
+        # ✅【步驟 A】手動建立純淨的 .npmrc
+        - name: Create Clean .npmrc
+          run: |
+            echo "registry=https://registry.npmjs.org/" > .npmrc
+            echo "@sygna:registry=https://registry.npmjs.org/" >> .npmrc
+            echo "//registry.npmjs.org/:_authToken=" >> .npmrc # 確保沒有殘留 Token
+            echo "✅ .npmrc created."
+
+        # 🔍【DEBUG 1】檢查檔案與環境
+        - name: 🔍 Debug - Inspect Environment
+          run: |
+            echo "=== 1. Current Directory ==="
+            pwd
+            ls -la
+            
+            echo "=== 2. Content of .npmrc ==="
+            cat .npmrc
+            
+            echo "=== 3. NPM Config List (Check registry resolution) ==="
+            npm config list
+            
+            echo "=== 4. Check OIDC Environment Variables ==="
+            # 檢查 GitHub 是否有注入 OIDC 變數 (不印出值，只檢查存不存在)
+            if [ -z "$ACTIONS_ID_TOKEN_REQUEST_URL" ]; then echo "❌ OIDC URL: MISSING (Permissions issue?)"; else echo "✅ OIDC URL: PRESENT"; fi
+            if [ -z "$ACTIONS_ID_TOKEN_REQUEST_TOKEN" ]; then echo "❌ OIDC TOKEN: MISSING"; else echo "✅ OIDC TOKEN: PRESENT"; fi
+
+        # 🔍【DEBUG 2】嘗試身分驗證 (預期會失敗，但看失敗訊息很重要)
+        - name: 🔍 Debug - Pre-flight Auth Check
+          continue-on-error: true # 允許失敗，不要中斷流程
+          run: |
+            echo "Testing 'npm whoami'..."
+            echo "Note: In OIDC mode, this might fail because we don't have a static token yet."
+            npm whoami --registry https://registry.npmjs.org/ || echo "⚠️ whoami failed (Normal for OIDC)"
+
+        # ✅【步驟 B】發布 (開啟 Verbose 模式)
+        - name: Publish to npm (Verbose)
+          # --verbose 會印出每一個 HTTP request 的細節
+          run: npm publish --provenance --access public --verbose
